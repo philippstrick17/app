@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.Display
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -19,6 +20,21 @@ class MainActivity : AppCompatActivity() {
     private lateinit var soundPool: SoundPool
     private var soundId: Int = 0
     private var counter = 0
+
+    private fun popAnimation(view: android.view.View) {
+        view.animate()
+            .scaleX(1.2f)
+            .scaleY(1.2f)
+            .setDuration(100)
+            .withEndAction {
+                view.animate()
+                    .scaleX(1f)
+                    .scaleY(1f)
+                    .setDuration(100)
+                    .start()
+            }
+            .start()
+    }
 
     private fun vibrate() {
         val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
@@ -70,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnClick.setOnClickListener {
+            popAnimation(tvCounter)
             counter ++
             tvCounter.text = counter.toString()
             soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
