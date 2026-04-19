@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.view.Display
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -28,6 +29,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun saveint(value: Int) {
+        val sharedPref = getSharedPreferences("CounterValue", MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.putInt("counter_key", value)
+        editor.apply()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         soundPool.release()
@@ -47,6 +55,13 @@ class MainActivity : AppCompatActivity() {
         val tvCounter = findViewById<TextView>(R.id.counterText)
         val btnClick = findViewById<Button>(R.id.meinErsterButton)
         val resetClick = findViewById<Button>(R.id.resetbutton)
+        val sharedPref = getSharedPreferences("CounterValue", MODE_PRIVATE)
+        counter = sharedPref.getInt("counter_key", 0)
+        if (counter >= 10) {
+            tvCounter.setTextColor(android.graphics.Color.RED)
+        }
+
+        tvCounter.text = counter.toString()
 
         resetClick.setOnClickListener {
             counter = 0
@@ -59,6 +74,7 @@ class MainActivity : AppCompatActivity() {
             tvCounter.text = counter.toString()
             soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
             vibrate()
+            saveint(counter)
 
             if (counter >= 10) {
                 tvCounter.setTextColor(android.graphics.Color.RED)
