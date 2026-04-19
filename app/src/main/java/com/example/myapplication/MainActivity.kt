@@ -28,10 +28,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        soundPool.release()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
+        soundPool = SoundPool.Builder()
+            .setMaxStreams(1)
+            .build()
+
+        soundId = soundPool.load(this, R.raw.ping, 1)
 
         val tvCounter = findViewById<TextView>(R.id.counterText)
         val btnClick = findViewById<Button>(R.id.meinErsterButton)
@@ -46,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         btnClick.setOnClickListener {
             counter ++
             tvCounter.text = counter.toString()
+            soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
             vibrate()
 
             if (counter >= 10) {
