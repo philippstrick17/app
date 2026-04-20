@@ -25,6 +25,13 @@ class MainActivity : AppCompatActivity() {
     private var counterpressed = 0 //How often the Counter is pressed
     private var resetpressed = 0 //How often Reset is pressed
 
+    val tvCounter = findViewById<TextView>(R.id.counterText)
+    val btnClick = findViewById<Button>(R.id.meinErsterButton)
+    val resetClick = findViewById<Button>(R.id.resetbutton)
+    val btnStats = findViewById<Button>(R.id.statsbutton)
+    val shopButton = findViewById<Button>(R.id.shopbutton)
+    val tvMultiply = findViewById<TextView>(R.id.multiplyervalue)
+
     //PopAnimation
     private fun popAnimation(view: android.view.View) {
         view.animate()
@@ -51,6 +58,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        // Multiplier neu laden
+        val sharedPref3 = getSharedPreferences("multiplier", MODE_PRIVATE)
+        val multiplier = sharedPref3.getFloat("multiplier_key", 1.0f) // Standard sollte 1.0f sein
+
+        // UI aktualisieren
+        val tvMultiply = findViewById<TextView>(R.id.multiplyervalue)
+        tvMultiply.text = "x$multiplier"
+
+        // Auch den Counter sicherheitshalber neu laden, falls im Shop was ausgegeben wurde
+        val sharedPref = getSharedPreferences("CounterValue", MODE_PRIVATE)
+        counter = sharedPref.getFloat("counter_key", 0.0f).toDouble()
+        val tvCounter = findViewById<TextView>(R.id.counterText)
+        tvCounter.text = counter.toString()
+    }
+
     //Destroy SoundPool Builder
     override fun onDestroy() {
         super.onDestroy()
@@ -64,14 +89,6 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        //Find all Objects in UI
-        val tvCounter = findViewById<TextView>(R.id.counterText)
-        val btnClick = findViewById<Button>(R.id.meinErsterButton)
-        val resetClick = findViewById<Button>(R.id.resetbutton)
-        val btnStats = findViewById<Button>(R.id.statsbutton)
-        val shopButton = findViewById<Button>(R.id.shopbutton)
-        val tvMultiply = findViewById<TextView>(R.id.multiplyervalue)
-
         //Get Counter Value from Shared Prefs
         val sharedPref = getSharedPreferences("CounterValue", MODE_PRIVATE)
         counter = sharedPref.getFloat("counter_key", 0.0f).toDouble()
@@ -81,7 +98,6 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPref2 = getSharedPreferences("resetpressed", MODE_PRIVATE)
         resetpressed = sharedPref2.getInt("resetpressed_key", 0)
-
 
         //Check for Counter Value
         if (counter >= 10) {
