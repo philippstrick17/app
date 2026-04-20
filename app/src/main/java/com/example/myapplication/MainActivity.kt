@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import kotlinx.coroutines.selects.SelectInstance
+import kotlin.jvm.java
 
 class MainActivity : AppCompatActivity() {
     private lateinit var soundPool: SoundPool //SoundPool
@@ -63,19 +64,12 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        //SoundPool Builer
-        soundPool = SoundPool.Builder()
-            .setMaxStreams(1)
-            .build()
-
-        //Load SoundPool
-        soundId = soundPool.load(this, R.raw.ping, 1)
-
         //Find all Objects in UI
         val tvCounter = findViewById<TextView>(R.id.counterText)
         val btnClick = findViewById<Button>(R.id.meinErsterButton)
         val resetClick = findViewById<Button>(R.id.resetbutton)
         val btnStats = findViewById<Button>(R.id.statsbutton)
+        val shopButton = findViewById<Button>(R.id.shopbutton)
 
         //Get Counter Value from Shared Prefs
         val sharedPref = getSharedPreferences("CounterValue", MODE_PRIVATE)
@@ -113,8 +107,9 @@ class MainActivity : AppCompatActivity() {
         btnClick.setOnClickListener {
             popAnimation(tvCounter) //Play Animation
             counter ++ //Raise Counter
+            counterpressed ++ //Raise Overall Counter
+
             tvCounter.text = counter.toString() //Convert Counter to String
-            soundPool.play(soundId, 1f, 1f, 0, 0, 1f) //Play Sound
             vibrate() //Vibrate
 
             //Save Value of Counter in SharedPrefs
@@ -140,6 +135,14 @@ class MainActivity : AppCompatActivity() {
         btnStats.setOnClickListener {
             //Intent for Stats Activity
             val intent = Intent(this, StatsActivity::class.java)
+            intent.putExtra("counter_value", counter)
+            intent.putExtra("counterpressed", counterpressed)
+            intent.putExtra("resetpressed", resetpressed)
+            startActivity(intent)
+        }
+
+        shopButton.setOnClickListener {
+            val intent = Intent(this, ShopAcitvity::class.java)
             intent.putExtra("counter_value", counter)
             startActivity(intent)
         }

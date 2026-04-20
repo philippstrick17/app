@@ -12,12 +12,51 @@
         android:id="@+id/StatsInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Statistik Übersicht"
+        android:textSize="24sp"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/contrasttext"
+        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/CounterPressed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/CounterPressed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Klicks: 0"
+        android:textSize="24sp"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/contrasttext"
+        app:layout_constraintTop_toBottomOf="@+id/StatsInfo"
+        app:layout_constraintBottom_toTopOf="@+id/ResetPressed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/ResetPressed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resets: 0"
+        android:textSize="24sp"
+        android:textColor="@color/contrasttext"
+        app:layout_constraintTop_toBottomOf="@+id/CounterPressed"
+        app:layout_constraintBottom_toTopOf="@+id/closebutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/closebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="68dp"
+        android:text="Back to the Game"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

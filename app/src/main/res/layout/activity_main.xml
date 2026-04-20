@@ -58,5 +58,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
+    <Button
+        android:id="@+id/shopbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
