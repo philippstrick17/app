@@ -25,7 +25,6 @@ class StatsActivity : AppCompatActivity() {
         val tvResetPressed = findViewById<TextView>(R.id.ResetPressed)
         val backbutton = findViewById<Button>(R.id.closebutton)
 
-
         tvCounter.text = "Aktuelle Punktzahl $recievedcounter"
         tvCounterPressed.text = "$recieverdcounterpressed mal gedrückt"
         tvResetPressed.text = "$recievedresetpressed mal Zurückgesetzt"

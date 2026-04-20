@@ -69,5 +69,18 @@
         android:layout_marginStart="8dp"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 x"
+        android:id="@+id/multiplyervalue"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="21dp"
+        android:textColor="@color/contrasttext"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
